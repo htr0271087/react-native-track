@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "node src/devIndex.js",
+    "index": "nodemon src/index.js",
     "tunnel": "ngrok http 3000"
   },
   "author": "",

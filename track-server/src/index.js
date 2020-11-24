@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const trackRoutes = require('./routes/trackRoutes');
 const requireAuth = require("./middleware/requireAuth");
 
+const port = 3000;
 const app = express();
 app.use(bodyParser.json());
 app.use(authRoutes);
@@ -31,6 +32,6 @@ app.get("/", requireAuth, (req, res) => {
     res.send(`You email: ${req.user.email}`);
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("Listen on port 3000");
 });
