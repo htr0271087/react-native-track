@@ -1,12 +1,28 @@
-import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
+import { ListItem } from 'react-native-elements';
+import { Context as TrackContext } from '../context/TrackContext';
 
 export const TrackListScreen = ({ navigation }) => {
+    const { state, fetchTracks } = useContext(TrackContext);
     return <>
-        <Text style={{ fontSize: 18 }}>TrackListScreen</Text>
-        <Button title="Go to Track Detail" onPress={() => navigation.navigate("TrackDetail")}></Button>
+        <NavigationEvents onWillFocus={fetchTracks} />
+        <FlatList
+            data={state}
+            keyExtractor={item => item._id}
+            renderItem={({ item }) => {
+                return <TouchableOpacity onPress={() => navigation.navigate('TrackDetail', { _id: item._id })}>
+                    <ListItem.Chevron title={item.name} />
+                </TouchableOpacity>
+            }}
+        />
     </>
 }
+
+TrackListScreen.navigationOptions = {
+    title: 'Tracks'
+};
 
 const styles = StyleSheet.create({});
 
